@@ -13,5 +13,14 @@ namespace MicroRabbit.Transfer.Data.Context
         }
 
         public DbSet<TransferLog> TransferLogs { get; set; }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TransferLog>().HasData(
+                new TransferLog { Id = 1, FromAccount = 123, ToAccount = 456, TransferAmount = 100.50m },
+                new TransferLog { Id = 2, FromAccount = 789, ToAccount = 321, TransferAmount = 50.75m }
+                // Add more seed data as needed
+            );
+        }
     }
 }

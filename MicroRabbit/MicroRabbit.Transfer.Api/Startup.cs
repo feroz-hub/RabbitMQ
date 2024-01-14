@@ -35,7 +35,7 @@ namespace MicroRabbit.Transfer.Api
         {
             services.AddDbContext<TransferDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("TransferDbConnection"));
+                options.UseSqlite(Configuration.GetConnectionString("TransferDbConnection"));
             }
             );
 
@@ -46,7 +46,7 @@ namespace MicroRabbit.Transfer.Api
                 c.SwaggerDoc("v1", new Info { Title = "Transfer Microservice", Version = "v1" });
             });
 
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(cfg=>cfg.RegisterServicesFromAssembly(typeof(Startup).Assembly));
 
             RegisterServices(services);
         }

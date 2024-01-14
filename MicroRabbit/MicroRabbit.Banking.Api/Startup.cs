@@ -32,7 +32,7 @@ namespace MicroRabbit.Banking.Api
         {
             services.AddDbContext<BankingDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("BankingDbConnection"));
+                options.UseSqlite(Configuration.GetConnectionString("BankingDbConnection"));
             }
             );
 
@@ -43,7 +43,7 @@ namespace MicroRabbit.Banking.Api
                 c.SwaggerDoc("v1", new Info { Title = "Banking Microservice", Version = "v1" });
             });
 
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(cfg=>cfg.RegisterServicesFromAssembly(typeof(Startup).Assembly));
 
             RegisterServices(services);
         }
